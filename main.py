@@ -1,7 +1,9 @@
 import tkinter as tk
-from BotonImagen import BotonImagen
+from BotonImagen import on_click
 from Disenotablero import crear_tablero
+from PantallaFin import mostrar_mensaje
 from LogicaTriqui import check_winner, reset_board
+
 
 class TicTacToe:
     def __init__(self, root):

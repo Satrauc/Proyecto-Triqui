@@ -1,6 +1,7 @@
-def on_click(index):
+from LogicaTriqui import check_winner
+def on_click(boton=None):
     global turn
-    if buttons[index]['text'] == "":
-        buttons[index]['text'] = turn
+    if boton == "":
+        boton = turn
         if not check_winner():
             turn = "O" if turn == "X" else "X"
