@@ -1,13 +1,14 @@
 from tkinter import messagebox
+from PantallaFin import mostrar_mensaje
 
 def check_winner(winning_combinations, buttons):
     for line in winning_combinations:
         if buttons[line[0]]['text'] == buttons[line[1]]['text'] == buttons[line[2]]['text'] != "":
-            messagebox.showinfo("Fin del juego", f"¡{buttons[line[0]]['text']} ha ganado!")
+            mostrar_mensaje(buttons[line[0]]['text'])
             reset_board()
             return True
     if all(button['text'] != "" for button in buttons):
-        messagebox.showinfo("Fin del juego", "¡Empate!")
+        mostrar_mensaje()
         reset_board(buttons)
         return True
     return False
