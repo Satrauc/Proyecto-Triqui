@@ -1,45 +1,45 @@
 import tkinter as tk
 from BotonImagen import on_click
-from Disenotablero import crear_tablero
-from PantallaFin import mostrar_mensaje
 from LogicaTriqui import check_winner, reset_board
+from PantallaFin import mostrar_mensaje
+
+root = tk.Tk()
+root.title("Triqui")
+
+turn = "X"
+buttons = []
+
+winning_combinations = [
+    (0, 1, 2), (3, 4, 5), (6, 7, 8),  
+    (0, 3, 6), (1, 4, 7), (2, 5, 8),  
+    (0, 4, 8), (2, 4, 6)           
+]
+
+for i in range(3):
+    for j in range(3):
+        boton = tk.Button(
+            root,
+            text="",
+            width=10,
+            height=4,
+            font=("Arial", 20),
+            command=lambda b=len(buttons): handle_click(b)
+        )
+        boton.grid(row=i, column=j)
+        buttons.append(boton)
 
 
-class TicTacToe:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Tic Tac Toe")
-        
-        self.turn = "X"
-        self.buttons = []
-        self.winning_combinations = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],  # Filas
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],  # Columnas
-            [0, 4, 8], [2, 4, 6]              # Diagonales
-        ]
-        
-        self.setup_ui()
-    
-    def setup_ui(self):
-        self.board_frame = tk.Frame(self.root)
-        self.board_frame.pack()
-        
-        for i in range(3):
-            for j in range(3):
-                btn = BotonImagen(self.board_frame, i, j, self.on_click)
-                btn.grid(row=i, column=j)
-                self.buttons.append(btn)
-    
-    def on_click(self, index):
-        if self.buttons[index]['text'] == "":
-            self.buttons[index]['text'] = self.turn
-            
-            if check_winner(self.winning_combinations, self.buttons):
-                return
-            
-            self.turn = "O" if self.turn == "X" else "X"
+def handle_click(index):
+    global turn
+    boton = buttons[index]
+    if boton['text'] == "":
+        boton['text'] = turn
+        if not check_winner(winning_combinations, buttons):
+            turn = "O" if turn == "X" else "X"
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    game = TicTacToe(root)
-    root.mainloop()
+
+reset_button = tk.Button(root, text="Reiniciar", font=("Arial", 14),
+                         command=lambda: reset_board(buttons))
+reset_button.pack(pady=10)
+
+root.mainloop()
