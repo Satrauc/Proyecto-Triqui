@@ -14,6 +14,7 @@ buttons = []
 frame = tk.Frame(root)
 frame.pack()
 
+triqui.create_board(frame)
 
 interfaz_grafica(root, frame, buttons, turn)
 
